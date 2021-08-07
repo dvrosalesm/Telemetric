@@ -1,0 +1,8 @@
+{
+  "name": "TelemetricMain",
+  "displayName": "Telemetric",
+  "ios": {
+    "bundleIdentifier": "com.studiopensabene",
+    "suppotsTablet": true
+  }
+}

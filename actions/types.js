@@ -1,0 +1,17 @@
+/*  USER  */
+export const AUTHENTICATE = 'AUTHENTICATE'
+export const LOGGEDIN = 'LOGGEDIN'
+export const USER_DETAILS = 'USER_DETAILS'
+
+/* APPS */
+export const GET_DOWNLOADABLE_APPS = 'GET_DOWNLOADABLE_APPS'
+export const GET_LOCAL_APPS = 'GET_LOCAL_APPS'
+export const DOWNLOAD_FILE = 'DOWNLOAD_FILE'
+export const DELETE_APP = 'DELETE_APP'
+export const UPDATE_APP = 'UPDATE_APP'
+
+/* TELEMETRIC */
+export const REGISTER_STATS = 'REGISTER_STATS'
+
+/* GENERAL */
+export const ON_ERROR = 'ON_ERROR';
