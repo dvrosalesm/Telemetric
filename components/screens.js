@@ -1,14 +1,44 @@
-import { Navigation } from 'react-native-navigation'
-import App from '../app'
-import Login from './Login/loginComponent'
-import Home from './Home/homeComponent'
-import Main from './Main/mainComponent'
-import TelemetricWebView from './WebViewer/telemetricWebViewComponent'
+import {Navigation} from 'react-native-navigation';
+import App from '../app';
+import Login from './Login/loginComponent';
+import Home from './Home/homeComponent';
+import Main from './Main/mainComponent';
+import TelemetricWebView from './WebViewer/telemetricWebViewComponent';
+import {Provider} from 'react-redux';
+import React from 'react';
 
-export function registerScreens(provider, store) {
-    Navigation.registerComponentWithRedux('navigation.app', () => App, provider, store)
-    Navigation.registerComponentWithRedux('navigation.main', () => Main, provider, store)
-    Navigation.registerComponentWithRedux('navigation.login', () => Login, provider, store)
-    Navigation.registerComponentWithRedux('navigation.home', () => Home, provider, store)
-    Navigation.registerComponentWithRedux('navigation.webview', () => TelemetricWebView, provider, store)
+export function registerScreens(prov, store) {
+  Navigation.registerComponent(
+    'navigation.app',
+    () => (props) => (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ),
+    () => App,
+  );
+  Navigation.registerComponent(
+    'navigation.main',
+    () => (props) => (
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    ),
+    () => Main,
+  );
+  Navigation.registerComponent('navigation.login', () => (props) => (
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  ));
+  Navigation.registerComponent('navigation.home', () => (props) => (
+    <Provider store={store}>
+      <Home />
+    </Provider>
+  ));
+  Navigation.registerComponent('navigation.webview', () => (props) => (
+    <Provider store={store}>
+      <TelemetricWebView {...props} />
+    </Provider>
+  ));
 }
