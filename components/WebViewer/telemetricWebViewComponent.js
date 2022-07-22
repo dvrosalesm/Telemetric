@@ -31,6 +31,7 @@ class TelemetricWebView extends Component {
       },
       scriptInjection: '',
       renderedOnce: false,
+      entryPoint: undefined,
     };
     this.getDocumentContent = this.getDocumentContent.bind(this);
     this.onMessage = this.onMessage.bind(this);
@@ -38,6 +39,7 @@ class TelemetricWebView extends Component {
     this.updateLocation = this.updateLocation.bind(this);
     this.onNavigationStateChange = this.onNavigationStateChange.bind(this);
     this.updateSource = this.updateSource.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +47,34 @@ class TelemetricWebView extends Component {
     this.updateLocation();
     this.props.getUserDetails();
     this.updateLocation();
+
+    const self = this;
+    RNFS.exists(self.props.uri + '/index.html').then((exists) => {
+      if (exists) {
+        self.setState({
+          entryPoint: self.props.uri + '/index.html',
+        });
+        self.forceUpdate();
+      }
+    });
+
+    RNFS.exists(self.props.uri + '/index.pdf').then((exists) => {
+      if (exists) {
+        self.setState({
+          entryPoint: self.props.uri + '/index.pdf',
+        });
+        self.forceUpdate();
+      }
+    });
+
+    RNFS.exists(self.props.uri + '/index.mp4').then((exists) => {
+      if (exists) {
+        self.setState({
+          entryPoint: self.props.uri + '/index.mp4',
+        });
+        self.forceUpdate();
+      }
+    });
   }
 
   updateSource() {
@@ -114,6 +144,7 @@ class TelemetricWebView extends Component {
   }
 
   render() {
+    console.log(this.state.entryPoint);
     return (
       <View style={styles.WebContainer}>
         <WebView
@@ -136,7 +167,9 @@ class TelemetricWebView extends Component {
           onLoad={this.updateSource}
           source={
             this.state.renderedOnce
-              ? {uri: 'file://' + this.props.uri.replace(' ', '%20')}
+              ? {
+                  uri: 'file://' + this.state.entryPoint?.replace(' ', '%20'),
+                }
               : undefined
           }
         />

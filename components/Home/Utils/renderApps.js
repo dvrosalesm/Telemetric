@@ -141,7 +141,7 @@ export default class renderApps extends Component {
       return (
         <Text style={componentStyle.AppDescription}>
           {' '}
-          {props.app.description.length > 105
+          {props.app.description?.length > 105
             ? props.app.description.substr(0, 105) + '...'
             : props.app.description}{' '}
         </Text>

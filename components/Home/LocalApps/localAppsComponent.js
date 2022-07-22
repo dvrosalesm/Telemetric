@@ -47,9 +47,6 @@ class localApps extends Component {
   }
 
   showWebView(app) {
-    app.indexPath = app.indexPath.endsWith('/index.html')
-      ? app.indexPath
-      : app.indexPath + '/index.html';
     Navigate('navigation.webview', {
       uri: app.indexPath,
       appname: app.name,
@@ -176,6 +173,7 @@ class localApps extends Component {
   }
 
   render() {
+    console.log(this.props.LocalApps);
     const componentStyles = styles(this.state.isMobile);
 
     return (
